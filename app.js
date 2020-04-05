@@ -6,7 +6,7 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-// MIDDLEWARES
+// Middlewares
 app.use(morgan('dev'));
 
 app.use(express.json());
@@ -25,8 +25,4 @@ app.use((req, res, next) => {
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-// SERVER
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+module.exports = app;
