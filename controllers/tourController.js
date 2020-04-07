@@ -45,7 +45,7 @@ exports.getTour = async (req, res) => {
     res.status(200).json({
       status: 'sucess',
       data: {
-        tour: tour,
+        tour,
       },
     });
   } catch (err) {
@@ -58,12 +58,16 @@ exports.getTour = async (req, res) => {
 
 exports.updateTour = async (req, res) => {
   try {
-    const tour = await Tour.findById(req.params.id);
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+      // return the new updated document
+      new: true,
+      runValidators: true,
+    });
 
     res.status(200).json({
       status: 'sucess',
       data: {
-        tour: tour,
+        tour,
       },
     });
   } catch (err) {
