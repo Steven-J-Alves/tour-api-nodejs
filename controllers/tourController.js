@@ -5,10 +5,6 @@ exports.getAllTours = async (req, res) => {
     // BUILD QUERY
     // 1A) Filtering
     const queryObj = { ...req.query };
-    // To not go this params to db query
-    // Because we do not document with this fields
-    // { difficulty: 'easy', sort: '3'}
-    // { difficulty: 'easy'}
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
@@ -52,13 +48,6 @@ exports.getAllTours = async (req, res) => {
 
     // EXECUTE QUERY
     const tours = await query;
-    //query.sort(),select().skip.limit()
-
-    // const query = Tour.find()
-    //   .where('duration')
-    //   .equals(5)
-    //   .where('difficulty')
-    //   .equals('easy');
 
     // SEND RESPONSE
     res.status(200).json({
