@@ -111,7 +111,6 @@ exports.deleteTour = async (req, res) => {
   }
 };
 
-// FIXME: $groups is not allowed in this atlas tier
 // Gettting stats using aggregation pipeline
 exports.getTourStats = async (req, res) => {
   try {
@@ -120,7 +119,7 @@ exports.getTourStats = async (req, res) => {
         $match: { ratingsAverage: { $gte: 4.5 } },
       },
       {
-        $groups: {
+        $group: {
           _id: { $toUpper: '$difficulty' },
           numTours: { $sum: 1 },
           numRatings: { $sum: '$ratingsQuantity' },
@@ -133,9 +132,9 @@ exports.getTourStats = async (req, res) => {
       {
         $sort: { avgPrice: 1 },
       },
-      // {
-      //   $match: { _id: { $ne: 'EASY' } },
-      // },
+      {
+        $match: { _id: { $ne: 'EASY' } },
+      },
     ]);
 
     res.status(200).json({
